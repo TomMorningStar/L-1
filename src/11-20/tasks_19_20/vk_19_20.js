@@ -1,6 +1,44 @@
-async function loadPosts(offset = 0, count = 10) {
+// Реализовать виджет, отображающий список постов из любого паблика в VK
+//  (подойдет любой паблик, где постов очень много).
+
+async function redirectToAuthorization() {
   try {
-    const response = await fetch(`http://localhost:3000/?owner_id=-1&offset=${offset}&count=${count}&access_token=f39a6f8ef39a6f8ef39a6f8e02f08f0c49ff39af39a6f8e9779d9e6ee978cfec8b753aa&v=5.131`, {
+    window.location.href = 'https://oauth.vk.com/authorize?client_id=51735656&display=page&redirect_uri=http://localhost:4000/11-20/tasks_19_20/vk.html/&response_type=code&v=5.131';
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// функция для получения access_token
+async function getAccessToken() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+
+  if (!code) {
+    redirectToAuthorization();
+  }
+
+  const response = await fetch(`http://localhost:3000/oauth.vk.com/access_token?client_id=51735656&client_secret=TbY0p49wAhEYt2FGGeLd&redirect_uri=http://localhost:4000/11-20/tasks_19_20/vk.html/&code=${code}`)
+
+  if (response.ok) {
+    const data = await response.json();
+
+    localStorage.setItem('access_token', data.access_token);
+    return data.access_token;
+  } else {
+    console.error('Response status is not OK:', response);
+    return [];
+  }
+}
+
+if (!localStorage.getItem('access_token')) {
+  getAccessToken();
+}
+
+// Функция для загрузки постов из ВКонтакте
+async function loadPosts(offset = 0, count = 10, access_token) {
+  try {
+    const response = await fetch(`http://localhost:3000/api.vk.com/method/wall.get/?owner_id=-1&offset=${offset}&count=${count}&access_token=${access_token}&v=5.131`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +75,7 @@ function displayPosts(posts) {
   });
 }
 
-// Функция для кэширования данных в localStorage
+// функция для кэширования данных в localStorage
 function cachePosts(posts) {
   const cachedData = JSON.parse(localStorage.getItem("cachedPosts")) || [];
   const newData = cachedData.concat(posts);
@@ -57,13 +95,14 @@ function cachePosts(posts) {
   console.log(`объем занятой памяти: ${usedSpace} / максимальный размер хранилища: ${totalSpace}`);
 }
 
-// Функция для инициализации виджета
-export async function initWidget() {
+export async function initWidget(token) {
+  const access_token = token || localStorage.getItem('access_token');
+
   const container = document.getElementById("widget-container");
   container.style.display = "block";
   let offset = 0;
   const cachedData = JSON.parse(localStorage.getItem("cachedPosts")) || [];
-  const posts = await loadPosts(offset);
+  const posts = await loadPosts(offset, 10, access_token);
 
   document.querySelector('.info').textContent = `объем занятой памяти: ${JSON.stringify(localStorage).length} / максимальный размер хранилища: ${4194302}`
 
@@ -78,7 +117,7 @@ export async function initWidget() {
     if (Math.floor(container.scrollHeight - container.scrollTop) === container.clientHeight ||
       Math.ceil(container.scrollHeight - container.scrollTop) === container.clientHeight) {
       offset += 10; // Загружаем следующие 10 постов
-      const newPosts = await loadPosts(offset);
+      const newPosts = await loadPosts(offset, 10, access_token);
       if (newPosts.length > 0) {
         displayPosts(newPosts);
         cachePosts(newPosts);
@@ -87,4 +126,20 @@ export async function initWidget() {
   });
 }
 
-initWidget(); // Запуск модуля получения постов из ВКонтакте
+
+async function initializeWidget() {
+  try {
+    const access_token = localStorage.getItem('access_token');
+
+    if (!access_token) {
+      await getAccessToken();
+    }
+
+    // Вызов initWidget() только после успешного получения access_token
+    initWidget(access_token);
+  } catch (error) {
+    console.error('Initialization error:', error);
+  }
+}
+
+initializeWidget(); // Запуск модуля получения постов из ВКонтакте

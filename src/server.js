@@ -14,10 +14,10 @@ app.use((req, res, next) => {
 
 app.get('*', async (req, res) => {
   try {
-    const response = await axios.get('https://api.vk.com/method/wall.get' + req.url);
+    const response = await axios.get('https:/' + req.url);
     res.json(response.data);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({ error: 'Proxy server error' });
   }
 });
