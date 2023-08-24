@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/index.9e4c6fd2.css">
+
+  <title>moment_16</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Задача на модули и использование внешних библиотек: напишите модуль,
+      //  который экспортирует функцию для работы с датами.Внутри модуля
+      //   используйте внешнюю библиотеку Moment.js для удобной работы с датами.
+      
+      import moment from 'moment';
+      
+      export function formatDate(format, date) {
+        return moment(date).format(format);
+      }
+      
+      console.log(formatDate('DD/MM/YYYY', new Date())); // 02/10/2017 // Запуск модуля работы с датами    
+    </pre>
+  </code>
+
+  <script src="/11-20/moment_16/moment.ed1a7724.js" defer=""></script>
+</body>
+
+</html>

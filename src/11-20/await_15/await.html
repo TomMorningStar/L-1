@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../index.css">
+  <script src="./await_15.js" defer></script>
+  <title>await_15</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Задача на асинхронность: напишите асинхронную функцию, которая использует
+      //  ключевое слово await для ожидания выполнения других асинхронных операций,
+      //   и возвращает результат выполнения.
+      
+      async function wait() {
+        console.log(1);
+      
+        await new Promise((resolve) => setTimeout(() => {
+          resolve(console.log('Hello'));
+        }, 1000));
+      
+        console.log(2);
+      
+        return 3;
+      }
+      
+      export function f() {
+        wait().then((result) => console.log(result));
+      }
+      
+      f(); // 1 Hello 2 3 // Запуск модуля асинхронности     
+    </pre>
+  </code>
+</body>
+
+</html>

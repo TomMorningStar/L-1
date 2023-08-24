@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math</title>
+  <link rel="stylesheet" href="/index.9e4c6fd2.css">
+  <script src="/1-10/math_3/math.54758a6d.js" defer=""></script>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      console.log(new MathX().fib(10)); // 55
+      console.log(new MathX().fibAll(10)); // [0, 1, 1, 2, 3, 5, 8]
+      console.log(new MathX().prime(10)); // 29
+      console.log(new MathX().primeAll(10)); // [2, 3, 5, 7]
+      
+      
+      function MathX() {
+        this.fib = function (n) { // вычисление N-го числа в ряду Фибоначчи
+          let a = 0;
+          let b = 1;
+          for (let i = 3; i <= n; i++) { // 3, 4, 5, 6, 7, 8, 9, 10
+            let c = a + b;
+            a = b;
+            b = c;
+          }
+          return b;
+        }
+      
+        this.fibAll = function (n) { // вычисление всех чисел в ряду Фибоначчи до числа N
+          let arr = [0, 1];
+          let a = 1;
+          let b = 1;
+          for (let i = 3; i <= n; i++) { // 3, 4, 5, 6, 7, 8, 9, 10
+            let c = a + b;
+            a = b;
+            b = c;
+            arr.push(b);
+          }
+          return arr;
+        }
+      
+        this.prime = function (n) { // вычисление N-го просто числа
+          let arr = [];
+          let i = 2;
+          while (arr.length < n) { // 2, 3, 5, 7, 11, 13, 17, 19, 23, 29
+            if (isPrime(i)) {
+              arr.push(i);
+            }
+            i++;
+          }
+          return arr[arr.length - 1];
+        }
+      
+        this.primeAll = function (n) { // вычисление всех простых чисел до числа N
+          let arr = [];
+          let i = 2;
+          while (arr.length < n) { // 2, 3, 5, 7, 11, 13, 17, 19, 23, 29
+            if (isPrime(i)) {
+              arr.push(i);
+            }
+            i++;
+          }
+          return arr;
+        }
+      
+        function isPrime(num) { // проверка на простое число
+          for (let i = 2; i < num; i++) {
+            if (num % i === 0) {
+              return false
+            }
+          }
+          return true;
+        }
+      }
+    </pre>
+  </code>
+<script src="/math.bf997c38.js"></script></body>
+
+</html>

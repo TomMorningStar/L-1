@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../index.css">
+  <script src="./callStack_21.js" defer></script>
+  <title>callStack_21</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Вычислить размер коллстэка в основных браузерах: Chrome, Firefox, Opera и Safari (если есть возможность).
+
+      export function measureStackSize() {
+        let stackSize = 0;
+      
+        function recurse() {
+          stackSize++;
+          recurse();
+        }
+      
+        try {
+          recurse();
+        } catch (error) {
+          console.log("Максимальный размер стека вызовов:", stackSize);
+        }
+      }
+      
+      measureStackSize(); // Запуск модуля измерения размера коллстэка 
+    </pre>
+  </code>
+</body>
+
+</html>

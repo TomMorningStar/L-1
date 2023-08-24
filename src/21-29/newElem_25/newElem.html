@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../index.css">
+  <script src="./newElem_25.js" defer></script>
+  <title>newElem_25</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Задача: Создать и добавить стиль для элемента: Напишите функцию, которая создает новый элемент,
+      //  добавляет его в DOM и устанавливает для него стиль с помощью CSS.
+      
+      
+      function createAndStyleElement(tagName, styles) {
+        // Создаем новый элемент с указанным тегом
+        const element = document.createElement(tagName);
+      
+        // Устанавливаем стили элемента
+        for (const styleName in styles) {
+          if (styles.hasOwnProperty(styleName)) {
+            element.style[styleName] = styles[styleName];
+          }
+        }
+      
+        // Добавляем элемент в DOM (например, в body)
+        document.body.appendChild(element);
+      
+        return element;
+      }
+      
+      // Пример использования:
+      const styles = {
+        width: '200px',
+        height: '100px',
+        backgroundColor: 'blue',
+        color: 'white',
+        textAlign: 'center',
+        fontSize: '18px'
+      };
+      
+      const newDiv = createAndStyleElement('div', styles);
+      newDiv.textContent = 'Новый элемент';      
+    </pre>
+  </code>
+</body>
+
+</html>

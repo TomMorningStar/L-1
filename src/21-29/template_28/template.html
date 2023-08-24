@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../index.css">
+  <script src="./template_28.js" defer></script>
+  <title>template_28</title>
+</head>
+
+<body>
+  <template id="my-template">
+    <div class="new-element">
+      <h2>Title</h2>
+      <p>Content goes here.</p>
+    </div>
+  </template>
+  <button id="add-button">Добавить элемент</button>
+  <div id="container"></div>
+
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Задача: Создать и добавить элемент с использованием шаблонов:
+      //  Напишите функцию, которая создает новый элемент с
+      //   использованием шаблонов (например, с помощью тега template) и добавляет его в DOM.
+      
+      
+      function addElementFromTemplate() {
+        const template = document.getElementById('my-template');
+      
+        // клонируем содержимое шаблона
+        const clone = document.importNode(template.content, true);
+      
+        const titleElement = clone.querySelector('h2');
+        titleElement.textContent = 'Новый элемент';
+      
+        const container = document.getElementById('container');
+        container.appendChild(clone);
+      }
+      
+      const addButton = document.getElementById('add-button');
+      addButton.addEventListener('click', addElementFromTemplate);   
+    </pre>
+  </code>
+</body>
+
+</html>

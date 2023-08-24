@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../index.css">
+  <script src="./localStorage_18.js" defer></script>
+  <title>localStorage_18</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Подсчитать максимальный объем данных, который можно записать в localStorage вашего браузера.
+
+      function getLocalStorageSize() {
+        let data = 'a';
+        let size = 0;
+        try {
+          while (true) {
+            localStorage.setItem(data, data);
+            data += data;
+            size += data.length;
+          }
+        } catch (e) {
+          localStorage.removeItem(data);
+        }
+        return size;
+      }
+      
+      console.log(getLocalStorageSize()); // 4194302 // Запуск модуля подсчета размера localStorage    
+    </pre>
+  </code>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../index.css">
+  <script src="./promise_14.js" defer></script>
+  <title>promise_14</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Задача на промисы: напишите функцию,
+      //  которая принимает URL изображения и возвращает промис,
+      //   который разрешается с данными об изображении, когда оно загружено.
+      //    Когда говорится "промис разрешается с данными об изображении",
+      //     это означает, что промис должен быть успешно выполнен (resolved)
+      //      с данными об изображении после того, как изображение будет загружено.
+      
+      loadImage('https://iso.500px.com/wp-content/uploads/2016/03/stock-photo-142984111.jpg').then(data => {
+        console.log(data);
+      });
+      
+      function loadImage(url) {
+        return new Promise((resolve, reject) => {
+          const img = document.createElement('img'); // создаем элемент img
+          img.src = url; // устанавливаем src
+          img.alt = 'Image'; // устанавливаем alt
+      
+          img.addEventListener('error', () => reject(new Error('Image load failed'))); // reject
+          img.addEventListener('load', () => resolve(img)); // resolve
+        });
+      }   
+    </pre>
+  </code>
+</body>
+
+</html>

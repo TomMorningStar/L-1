@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../index.css">
+  <script src="./animateElement_27.js" defer></script>
+  <title>animateElement_27</title>
+</head>
+
+<body>
+  <div id="element-to-animate">
+    <h1>Animate Tag</h1>
+  </div>
+
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Задача: Добавить анимацию для элемента: Напишите функцию,
+      //  которая добавляет анимацию для элемента на веб-странице,
+      //  например, плавное изменение его положения или размера.
+      
+      
+      function animateElementSize(element, targetWidth, targetHeight, duration) {
+        const startWidth = element.offsetWidth;
+        const startHeight = element.offsetHeight;
+        const startTime = performance.now();
+      
+        // Метод performance.now()возвращает метку времени с высоким разрешением в миллисекундах.
+        // Он представляет собой время, прошедшее с тех пор Performance.timeOrigin(время начала навигации
+        // в контекстах окна или время запуска рабочего процесса в Workerконтекстах ServiceWorker).
+      
+        function step(currentTime) {
+          const elapsedTime = currentTime - startTime;
+          if (elapsedTime >= duration) {
+            element.style.width = `${targetWidth}px`;
+            element.style.height = `${targetHeight}px`;
+            return;
+          }
+      
+          const progress = Math.min(1, elapsedTime / duration);
+          const newWidth = startWidth + (targetWidth - startWidth) * progress;
+          const newHeight = startHeight + (targetHeight - startHeight) * progress;
+          // уменьшаем длину за счет этого происходит анимация
+      
+          element.style.width = `${newWidth}px`;
+          element.style.height = `${newHeight}px`;
+      
+          requestAnimationFrame(step); // бесконечный оптимизированный цикл встроенный в js ;)
+        }
+      
+        requestAnimationFrame(step);
+      }
+      
+      
+      const elementToAnimate = document.getElementById('element-to-animate');
+      animateElementSize(elementToAnimate, 300, 200, 10000); // элемент, ширина, высота, время    
+    </pre>
+  </code>
+</body>
+
+</html>

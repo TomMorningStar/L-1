@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../index.css">
+  <script src="./func_11.js" defer></script>
+  <title>func_11</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Задача о замыканиях и области видимости: напишите функцию, которая возвращает другую функцию.
+      //  Внутренняя функция должна иметь доступ к переменной,
+      //   определенной во внешней функции, даже после того, как внешняя функция завершила свое выполнение.
+
+      function func() {
+        let a = 10; // переменная определена во внешней функции
+
+        return function () { // замыкание
+          console.log(a); // используем переменную
+        }
+      }
+
+      let b = func();
+      b();
+    </pre>
+  </code>
+</body>
+
+</html>

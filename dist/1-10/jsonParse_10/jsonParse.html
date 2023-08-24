@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/index.9e4c6fd2.css">
+  <script src="/1-10/jsonParse_10/jsonParse.5be58759.js" defer=""></script>
+  <title>jsonParse_10</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Реализовать функцию конвертации строки в JSON со всеми необходимыми проверками и валидациями. 
+
+      function customJSONParse(jsonString) {
+        let index = 0;
+
+        function parseValue() {
+          const char = jsonString[index];
+
+          if (char === 't') { // true
+            index += 4;
+            return true;
+          }
+
+          if (char === 'f') { // false
+            index += 5;
+            return false;
+          }
+
+          if (char === 'n') { // null
+            index += 4;
+            return null;
+          }
+
+          if (char === '"') { // string
+            const start = ++index;
+            while (jsonString[index] !== '"') { // Skip string
+              index++;
+            }
+            const value = jsonString.slice(start, index); // Get string
+            index++;
+            return value;
+          }
+
+          if (char === '{') {
+            const obj = {};
+            index++;
+            while (jsonString[index] !== '}') {
+              const key = parseValue();
+              index++; // Skip colon
+              const value = parseValue();
+              obj[key] = value;
+              if (jsonString[index] === ',') {
+                index++;
+              }
+            }
+            index++;
+            return obj;
+          }
+
+          if (char === '[') {
+            const arr = [];
+            index++;
+            while (jsonString[index] !== ']') {
+              arr.push(parseValue());
+              if (jsonString[index] === ',') {
+                index++;
+              }
+            }
+            index++;
+            return arr;
+          }
+
+          const start = index;
+          while (
+            jsonString[index] !== ',' &&
+            jsonString[index] !== ']' &&
+            jsonString[index] !== '}' &&
+            jsonString[index] !== undefined
+          ) {
+            index++;
+          }
+          const numStr = jsonString.slice(start, index).trim();
+          return parseFloat(numStr);
+        }
+
+        return parseValue();
+      }
+
+
+      const jsonString = '{"title":"Совещание","occupiedBy":[{"name":"Иванов"},{"name":"Петров"}],"place":{"number":23}}';
+
+      console.log(customJSONParse(jsonString)); // { title: 'Совещание', occupiedBy: [ { name: 'Иванов' }, { name: 'Петров' } ], place: { number: 23 } }
+      console.log(JSON.parse(jsonString)); // { title: 'Совещание', occupiedBy: [ { name: 'Иванов' }, { name: 'Петров' } ], place: { number: 23 } }     
+    </pre>
+  </code>
+<script src="/jsonParse.ca529484.js"></script></body>
+
+</html>

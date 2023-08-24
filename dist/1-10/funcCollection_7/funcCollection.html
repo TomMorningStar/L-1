@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/index.9e4c6fd2.css">
+  <script src="/1-10/funcCollection_7/funcCollection.120fa8d5.js" defer=""></script>
+  <title>funcCollection</title>
+</head>
+
+<body>
+  <a title="Вернуться на предыдущую страницу" href="javascript:history.back()">Вернуться на предыдущую страницу</a>
+  <code>
+    <pre>
+      // Задача о коллекции функций: у вас есть массив функций, напишите код,
+      //  который вызовет каждую функцию в этом массиве и выведет их порядковый номер. Однако,
+      //   вызов каждой функции должен происходить только после вызова предыдущей функции.
+      
+      const funcCollection = arr => arr.forEach(func => func());
+      
+      const arr = [
+        () => console.log('0'),
+        () => console.log('1'),
+        () => console.log('2'),
+        () => console.log('3'),
+        () => console.log('4'),
+        () => console.log('5'),
+      ]
+      
+      funcCollection(arr) // 0 1 2 3 4 5
+    </pre>
+  </code>
+<script src="/funcCollection.08849afb.js"></script></body>
+
+</html>
